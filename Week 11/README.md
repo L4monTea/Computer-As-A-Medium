@@ -3,8 +3,8 @@
 ### using UnityEngine;
 ### using UnityEngine.InputSystem;
 
-### public class PlayerMovement : MonoBehaviour
-### {
+public class PlayerMovement : MonoBehaviour
+{
     public float moveSpeed;
 
     private float speedX = 0f;
@@ -55,6 +55,75 @@
         else
         {
             speedY = 0;
+        }
+    }
+}
+### Player Health Script
+using TMPro;
+using UnityEngine;
+
+public class PlayerHealth : MonoBehaviour
+{
+    public int health = 100;
+    public TMP_Text healthText;
+
+    public PlayerHealth(TMP_Text healthText)
+    {
+        this.healthText = healthText;
+    }
+
+    void Start()
+    {
+        healthText.text = "Health: " + health;
+    }
+    void Update()
+    {
+        healthText.text = "Health: " + health;
+    }
+}
+### Trap Script
+    using UnityEngine;
+
+public class Trap : MonoBehaviour
+{
+    public PlayerHealth playerHealth;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerHealth.health -= 10;
+        }
+    }
+}
+### Healthpack Script
+using UnityEngine;
+
+public class HealthPack : MonoBehaviour
+{
+    public PlayerHealth playerHealth;
+    public GameObject healthPack;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player")) 
+        {
+            if  (playerHealth.health <= 90)
+                playerHealth.health += 10;
+        }
+        {
+            healthPack.SetActive(false);
         }
     }
 }
